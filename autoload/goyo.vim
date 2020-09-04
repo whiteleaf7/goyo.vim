@@ -261,7 +261,7 @@ function! s:goyo_on(dim)
   augroup goyo
     autocmd!
     autocmd TabLeave    * nested call s:goyo_off()
-    autocmd VimResized  *        call s:resize_pads()
+    autocmd VimResized  *        call goyo#refresh()
     autocmd ColorScheme *        call s:tranquilize()
     autocmd BufWinEnter *        call s:hide_linenr() | call s:hide_statusline()
     autocmd WinEnter,WinLeave *  call s:hide_statusline()
@@ -440,6 +440,10 @@ function! goyo#execute(bang, dim)
       call s:goyo_off()
     end
   end
+endfunction
+
+function! goyo#refresh()
+  call feedkeys("\<C-w>=")
 endfunction
 
 let &cpo = s:cpo_save
